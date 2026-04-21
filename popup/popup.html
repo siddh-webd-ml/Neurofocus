@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroFocus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="13" stroke="url(#grad)" stroke-width="2" fill="none"/>
+          <circle cx="14" cy="14" r="6" fill="url(#grad)" opacity="0.8"/>
+          <circle cx="14" cy="14" r="2.5" fill="#E0E7FF"/>
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="28" y2="28">
+              <stop offset="0%" stop-color="#7C3AED"/>
+              <stop offset="100%" stop-color="#3B82F6"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="header-text">
+        <h1>NeuroFocus</h1>
+        <p class="subtitle">Stay in your flow</p>
+      </div>
+      <div class="status-dot" id="statusDot" title="Inactive"></div>
+    </header>
+
+    <!-- Intent Input -->
+    <section class="section">
+      <label class="label" for="intentInput">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        What are you focusing on?
+      </label>
+      <div class="input-wrapper">
+        <input
+          type="text"
+          id="intentInput"
+          class="input"
+          placeholder="e.g., Python, React, DSA (separate with commas)"
+          spellcheck="false"
+          autocomplete="off"
+        />
+        <button class="input-clear" id="clearIntent" title="Clear">×</button>
+      </div>
+      <div class="intents-chips" id="intentsChips"></div>
+    </section>
+
+    <!-- Focus Toggle -->
+    <section class="section toggle-section">
+      <div class="toggle-info">
+        <span class="toggle-label">Focus Mode</span>
+        <span class="toggle-status" id="toggleStatus">Off</span>
+      </div>
+      <button class="toggle-btn" id="focusToggle" role="switch" aria-checked="false">
+        <span class="toggle-knob"></span>
+      </button>
+    </section>
+
+    <!-- Focus Timer -->
+    <section class="section timer-section" id="timerSection">
+      <label class="label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        Focus Timer
+      </label>
+
+      <!-- Circular Timer Ring -->
+      <div class="timer-display">
+        <svg class="timer-ring" viewBox="0 0 120 120">
+          <circle class="timer-ring-bg" cx="60" cy="60" r="52" />
+          <circle class="timer-ring-progress" id="timerProgress" cx="60" cy="60" r="52" />
+        </svg>
+        <div class="timer-time" id="timerTime">25:00</div>
+        <div class="timer-label" id="timerLabel">Ready</div>
+      </div>
+
+      <!-- Duration Presets -->
+      <div class="timer-presets">
+        <button class="timer-preset" data-minutes="15">15m</button>
+        <button class="timer-preset active" data-minutes="25">25m</button>
+        <button class="timer-preset" data-minutes="45">45m</button>
+        <button class="timer-preset" data-minutes="60">60m</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>NeuroFocus v1.0</span>
+      <button class="footer-link" id="rescanBtn" title="Re-scan current page">⟳ Rescan</button>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

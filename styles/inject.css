@@ -1,0 +1,245 @@
+/* ============================================================
+ * NeuroFocus — Injected Styles
+ * Applied to target websites for focus mode effects.
+ *
+ * Tiers:
+ *   .nf-relevant      → highlighted (matches intent)
+ *   .nf-semi-relevant  → lightly blurred (partially matches)
+ *   .nf-blurred        → strongly blurred (irrelevant)
+ * ============================================================ */
+
+/* ── Strong blur for irrelevant content ───────────────────── */
+.nf-blurred {
+  filter: blur(10px) saturate(0.2) !important;
+  opacity: 0.25 !important;
+  transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+/* Reveal on hover (curiosity-safe peek) */
+.nf-blurred:hover {
+  filter: blur(2px) saturate(0.6) !important;
+  opacity: 0.6 !important;
+  pointer-events: auto !important;
+  cursor: pointer;
+}
+
+/* ── Light blur for semi-relevant content ─────────────────── */
+.nf-semi-relevant {
+  filter: blur(2px) saturate(0.7) !important;
+  opacity: 0.6 !important;
+  transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  pointer-events: auto !important;
+  user-select: none !important;
+  position: relative !important;
+  border-left: 2px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Clear on hover */
+.nf-semi-relevant:hover {
+  filter: blur(0.5px) saturate(0.85) !important;
+  opacity: 0.85 !important;
+  cursor: pointer;
+}
+
+/* ── Relevant content highlight ───────────────────────────── */
+.nf-relevant {
+  position: relative !important;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
+  border-left: 3px solid #7C3AED !important;
+  box-shadow: -4px 0 12px -2px rgba(124, 58, 237, 0.2) !important;
+  border-radius: 4px !important;
+}
+
+/* Subtle glow pulse for relevant items */
+.nf-relevant::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -3px !important;
+  width: 3px !important;
+  height: 100% !important;
+  background: linear-gradient(180deg, #7C3AED, #3B82F6) !important;
+  border-radius: 2px !important;
+  animation: nf-glow-pulse 2s ease-in-out infinite !important;
+}
+
+@keyframes nf-glow-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 4px rgba(124, 58, 237, 0.3); }
+  50%      { opacity: 0.7; box-shadow: 0 0 8px rgba(124, 58, 237, 0.6); }
+}
+
+/* ── Hidden elements (sidebar, comments) ──────────────────── */
+.nf-hidden {
+  display: none !important;
+}
+
+/* ── Direct Shorts Hiding (YouTube) ──────────────────────── */
+.neurofocus-active ytd-reel-shelf-renderer,
+.neurofocus-active ytd-reel-item-renderer,
+.neurofocus-active ytd-shorts,
+.neurofocus-active [title="Shorts"],
+.neurofocus-active [aria-label="Shorts"],
+.neurofocus-active ytd-horizontal-card-list-renderer,
+.neurofocus-active [data-content-type="shorts"] {
+  display: none !important;
+}
+
+/* Hide Shorts containers and sections */
+.neurofocus-active ytd-rich-section-renderer:has(ytd-reel-shelf-renderer),
+.neurofocus-active ytd-shelf-renderer:has(ytd-reel-item-renderer),
+.neurofocus-active div[role="region"]:has(ytd-reel-shelf-renderer) {
+  display: none !important;
+}
+
+/* Hide Shorts links */
+.neurofocus-active a[href*="/shorts/"],
+.neurofocus-active a[href^="/shorts"] {
+  display: none !important;
+}
+
+/* ── Body-level focus mode styles ─────────────────────────── */
+.neurofocus-active {
+  /* Slightly dim the overall page to make relevant items pop */
+  filter: brightness(0.95);
+  transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth transition for all feed elements when focus activates */
+.neurofocus-active ytd-rich-item-renderer,
+.neurofocus-active ytd-video-renderer,
+.neurofocus-active ytd-compact-video-renderer,
+.neurofocus-active ytd-grid-video-renderer,
+.neurofocus-active ytd-reel-item-renderer,
+.neurofocus-active yt-lockup-view-model,
+.neurofocus-active article,
+.neurofocus-active [data-testid="tweet"] {
+  transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease !important;
+}
+
+/* ── Focus overlay badge ─────────────────────────────────── */
+.nf-overlay-active::before {
+  content: '🧠 Stay Focused — NeuroFocus is active' !important;
+  position: fixed !important;
+  top: 12px !important;
+  right: 12px !important;
+  padding: 8px 16px !important;
+  background: linear-gradient(135deg, #1E1B4B, #312E81) !important;
+  color: #C4B5FD !important;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(124, 58, 237, 0.3) !important;
+  z-index: 999999 !important;
+  pointer-events: none !important;
+  animation: nf-fade-in 0.5s ease !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+@keyframes nf-fade-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Behavioral Warning Tooltip ──────────────────────────── */
+.nf-tooltip {
+  position: fixed;
+  z-index: 9999999;
+  max-width: 280px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #1E1B4B, #312E81);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  border-radius: 12px;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  color: #E0E7FF;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+              0 0 0 1px rgba(124, 58, 237, 0.1);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
+}
+
+.nf-tooltip-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.nf-tooltip-hiding {
+  opacity: 0;
+  transform: translateY(-4px) scale(0.96);
+}
+
+.nf-tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.nf-tooltip-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.nf-tooltip-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+.nf-tooltip-intent {
+  font-size: 11px;
+  color: #A78BFA;
+  margin-bottom: 10px;
+  padding: 4px 8px;
+  background: rgba(124, 58, 237, 0.15);
+  border-radius: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nf-tooltip-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.nf-tooltip-btn {
+  flex: 1;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nf-tooltip-dismiss {
+  background: rgba(255, 255, 255, 0.08);
+  color: #C4B5FD;
+}
+
+.nf-tooltip-dismiss:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.nf-tooltip-continue {
+  background: linear-gradient(135deg, #7C3AED, #3B82F6);
+  color: white;
+}
+
+.nf-tooltip-continue:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 2px 12px rgba(124, 58, 237, 0.4);
+}
