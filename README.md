@@ -54,7 +54,7 @@ User Input (Goal)
 ## Installation
 
 1. Clone the repository
-   git clone https://github.com/your-username/neurofocus.git
+   git clone https://github.com/siddh-webd-ml/Neurofocus
 
 2. Open Chrome and go to:
    chrome://extensions/
